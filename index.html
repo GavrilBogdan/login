@@ -15,17 +15,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/e594cd51e4.js" crossorigin="anonymous"></script>
 </head>
-<body class="min-h-screen bg-gradient-to-bl from-sky-400 to-slate-50 overflow-x-hidden">
+<body class="min-h-screen bg-gradient-to-bl from-purple-400 to-slate-50 overflow-x-hidden">
     <div class="min-h-screen flex justify-center items-center align-middle ">
-        <div class="flex p-12 flex-col items-center bg-white/40 rounded-2xl shadow-[0_8px_20px_rgba(0,0,0,0.8)] gap-3 backdrop-blur-xl" style="box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.6);">
+        <div class="flex p-12 flex-col items-center bg-white/10 rounded-2xl shadow-[0_8px_20px_rgba(0,0,0,0.8)] gap-3 backdrop-blur-xl" style="box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.6);">
              <i class="fa-regular fa-circle-user border-2 border-white rounded-lg p-2 text-4xl text-white shadow-lg"></i>
             <h1 class="text-white font-bold text-3xl uppercase shadow-xs" style="font-family: 'Poppins', sans-serif;">Login</h1>
-            <input data-key="text" placeholder="email" id="username" class="border-b-2 placeholder-white border-white bg-transparent focus:outline-none text-cyan-500 font-bold text-md  placeholder-black" />
-            <input data-key="password" placeholder="password" id="password" type="password" class="border-b-2 placeholder-white  border-white bg-transparent focus:outline-none text-cyan-500 font-bold text-md placeholder-black" />
-            <button id="loginBtn" class="border-2 relative group border-white rounded-lg p-3 font-bold text-white hover:text-cyan-500 transition duration-700 uppercase shadow-lg mt-4" style="font-family: 'Poppins', sans-serif; box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.3);">Sign In<span
+            <input data-key="text" placeholder="email" id="username" class="border-b-2 placeholder-white border-white bg-transparent focus:outline-none text-purple-500 font-bold text-md  placeholder-black" />
+            <input data-key="password" placeholder="password" id="password" type="password" class="border-b-2 placeholder-white  border-white bg-transparent focus:outline-none text-purple-500 font-bold text-md placeholder-black" />
+            <button id="loginBtn" class="border-2 relative group border-white rounded-lg p-3 font-bold text-white hover:text-purple-500 transition duration-700 uppercase shadow-lg mt-4" style="font-family: 'Poppins', sans-serif; box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.3);">Sign In<span
                 class="absolute top-0 left-0 w-0 h-full bg-white transition-all duration-500 group-hover:w-full z-[-1]"
               ></span></button>
-            <p class="text-center text-md text-white font-semibold">Don't have an account? <button class="cursor-pointer text-cyan-500 hover:underline-animation">Sign Up</button></p>
+            <p class="text-center text-md text-white font-semibold">Don't have an account? <button class="cursor-pointer text-purple-500 hover:underline-animation" onclick="goToSignUp()">Sign Up</button></p>
         </div>
     </div>
     <script type="module">
@@ -49,11 +49,15 @@
     if (error) {
       alert('Login failed: ' + error.message);
     } else {
-      alert('Login succesful! Welcome !' + (data.user.email || username))
+      alert('Login succesful! Welcome ! ' + (data.user.email || username))
       console.log(data)
     }
     
   })
+  function goToSignUp() {
+    window.location.href = "/signup.html";
+  }
+  window.goToSignUp = goToSignUp;
 </script>
 </body>
 </html> 

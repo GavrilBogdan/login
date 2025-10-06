@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playwrite+CU:wght@100..400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/e594cd51e4.js" crossorigin="anonymous"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-bl from-purple-400 to-slate-50 overflow-x-hidden">
+    <div class="min-h-screen flex justify-center items-center align-middle ">
+        <div class="flex p-12 flex-col items-center bg-white/10 rounded-2xl shadow-[0_8px_20px_rgba(0,0,0,0.8)] gap-3 backdrop-blur-xl" style="box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.6);">
+             <i class="fa-regular fa-circle-user border-2 border-white rounded-lg p-2 text-4xl text-white shadow-lg"></i>
+            <h1 class="text-white font-bold text-3xl uppercase shadow-xs" style="font-family: 'Poppins', sans-serif;">Sign Up</h1>
+            <input data-key="text" placeholder="email" id="email" class="border-b-2 placeholder-white border-white bg-transparent focus:outline-none text-purple-500 font-bold text-md  placeholder-black" />
+            <input data-key="password" placeholder="password" id="password" type="password" class="border-b-2 placeholder-white  border-white bg-transparent focus:outline-none text-purple-500 font-bold text-md placeholder-black" />
+            <input data-key="password" placeholder="Confirm password" id="confirmPassword" type="password" class="border-b-2 placeholder-white  border-white bg-transparent focus:outline-none text-purple-500 font-bold text-md placeholder-black" />
+            <p id="passwordMessage" class="text-sm mb-2"></p>
+            <button id="signUpBtn" class="border-2 relative group border-white rounded-lg p-3 font-bold text-white hover:text-purple-500 transition duration-700 uppercase shadow-lg mt-4" style="font-family: 'Poppins', sans-serif; box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.3);">Sign Up<span
+                class="absolute top-0 left-0 w-0 h-full bg-white transition-all duration-500 group-hover:w-full z-[-1]"
+              ></span></button>
+            <p class="text-center text-md text-white font-semibold">Already got an accout ? <button class="cursor-pointer text-purple-500 hover:underline-animation" onclick="goToSignIn()">Sign In</button></p>
+        </div>
+    </div>
+
+    <script type="module">
+        function goToSignIn() {
+            window.location.href = "index.html";
+        }
+        window.goToSignIn = goToSignIn;
+        import { createClient } from 'https://esm.sh/@supabase/supabase-js'
+
+         const supabaseUrl = "https://yemwpbhuhysdevnroqoz.supabase.co"
+         const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InllbXdwYmh1aHlzZGV2bnJvcW96Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk2ODAxNTksImV4cCI6MjA3NTI1NjE1OX0.wsVuE5pUOi9O2uvqNTb7DZBTkKqYXi6fiNB9hSh2SQA"  // only use the anon/public key in frontend
+         const supabase = createClient(supabaseUrl, supabaseKey)
+    
+         const email = document.getElementById('email')
+         const password = document.getElementById('password')
+         const confirmPassword = document.getElementById('confirmPassword')
+         const passwordMessage = document.getElementById('passwordMessage')
+         const signUpBtn = document.getElementById('signUpBtn')
+
+         function validatePasswordMatch() {
+            if( confirmPassword.value === " ") {
+                message.textContent = " "
+                signUpBtn.disabled = true
+                return
+            }
+
+            if (confirmPassword.value === password.value) {
+                message.textContent = "✅ Passwords match"
+                message.style.color = "green"
+                signupBtn.disabled = false
+            } else {
+                message.textContent = "❌ Passwords do not match"
+                message.style.color = "red"
+                signupBtn.disabled = true
+            }
+         }
+
+         password.addEventListener('input', validatePasswordMatch)
+         confirmPassword.addEventListener('input', validatePasswordMatch)
+
+         signUpBtn.addEventListener('click', async () => {
+            if (password.value !== confirmPassword.value) {
+                alert('Passwords do not match!')
+                return  
+            }
+
+            const { data, error } = await supabase.auth.signUp({
+                email: email.value,
+                password: password.value
+            })
+
+            if (error) {
+              alert("❌ Sign up failed: " + error.message)
+              } else {
+              alert("✅ Sign up successful! Check your email for confirmation.")
+              console.log(data)
+              }
+         })
+    </script>
+</body>
+</html>
